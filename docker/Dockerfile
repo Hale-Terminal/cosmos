@@ -1,4 +1,4 @@
-FROM python:3.7.9-alpine2.12
+FROM python:3.9.7-slim-buster
 
 RUN apt-get update
 
