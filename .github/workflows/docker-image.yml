@@ -13,6 +13,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file docker/Dockerfile --tag my-image-name:$(date +%s)
+    - name: Check out the repo
+      uses: actions/checkout@v3
+    - name: Push to GitHub Packages
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: docker.pkg.github.com
+        repository: hale-terminal/cosmos/cosmos-image
+        tag_with_ref: true
