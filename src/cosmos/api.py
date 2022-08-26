@@ -1,4 +1,5 @@
-import imp
+from typing import Union
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 
@@ -9,11 +10,11 @@ class App(BaseModel):
     app: str
     ip_address: str
     status: str
-    port: int | None = 0
-    ami_id: str | None = ""
-    instance_id: str | None = ""
-    availability_zone: str | None = ""
-    instance_type: str | None = ""
+    port: Union[int, None] = None
+    ami_id: Union[str, None] = None
+    instance_id: Union[str, None] = None
+    availability_zone: Union[str, None] = None
+    instance_type: Union[str, None] = None
     
 
 api = FastAPI()
