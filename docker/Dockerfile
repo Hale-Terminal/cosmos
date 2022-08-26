@@ -4,7 +4,7 @@ RUN apt-get update
 
 COPY . /usr/src/cosmos/
 RUN cd /usr/src/cosmos \
-    && python setup.py \
+    && python setup.py bdist_wheel \
     && mv /usr/src/cosmos/dist /dist
 
 RUN groupadd -r cosmos && useradd -r -m -g cosmos cosmos 
