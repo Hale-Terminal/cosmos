@@ -67,8 +67,7 @@ RUN set -x \
     # during container run and can have the same deps w/
     && apt-get install -y --no-install-recommends \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && npm install mjml
+    && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 8000
 VOLUME /var/lib/cosmos/files
