@@ -53,13 +53,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget gnupg \
     && rm -rf /var/lib/apt/lists/*
 
-RUN set -x \
-    && echo "deb http://apt.postgresql.org/pub/repos/apt buster-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
-    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-
-RUN set -x \
-    && wget --quiet -O - https://deb.nodesource.com/setup_12.x | bash -
-
 COPY --from=sdist /dist/*.whl /tmp/dist/
 RUN set -x \
     && buildDeps="" \
@@ -73,7 +66,6 @@ RUN set -x \
     # These are also installed last as they are needed
     # during container run and can have the same deps w/
     && apt-get install -y --no-install-recommends \
-    pkg-config postgresql-client-12 nodejs \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && npm install mjml
