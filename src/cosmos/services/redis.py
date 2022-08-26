@@ -11,7 +11,8 @@ class RedisHandler:
         self.r = Redis(
             host=config.REDIS_HOST,
             port=config.REDIS_PORT,
-            db=config.REDIS_DATABASE
+            db=config.REDIS_DATABASE,
+            password=config.REDIS_PASSWORD
         )
 
     def add(self, key, app, ip_address, status, port, ami_id, instance_id, availability_zone, instance_type, ami_launch_index):
