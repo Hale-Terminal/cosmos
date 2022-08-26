@@ -1,10 +1,9 @@
 import sys
 
 sys.path.append("./")
-from cosmos.main import run
+import uvicorn
 
 if __name__ == "__main__":
     from bin.env import set_env
-
     set_env()
-    run()
+    uvicorn.run("src.cosmos.api:api", host="0.0.0.0")
