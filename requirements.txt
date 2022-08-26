@@ -1,0 +1,8 @@
+python-logging-loki
+starlette
+fastapi
+pydantic
+influxdb
+redis
+uvicorn
+click
