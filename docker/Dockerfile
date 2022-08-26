@@ -73,7 +73,7 @@ EXPOSE 8000
 VOLUME /var/lib/cosmos/files
 
 ENTRYPOINT ["cosmos"]
-CMD ["start", "api"]
+CMD ["api"]
 
 ARG SOURCE_COMMIT
 LABEL org.opencontainers.image.revision=$SOURCE_COMMIT

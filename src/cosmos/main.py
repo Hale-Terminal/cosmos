@@ -19,6 +19,18 @@ eventlogger = EventLogging()
 def cosmos_cli():
     pass
 
+@cosmos_cli.command("api")
+def api_s():
+    uvicorn.run("cosmos.api:api", host="0.0.0.0")
+
+
+@cosmos_cli.command("monitor")
+def monitor_s():
+    monitor = Monitor()
+    while True:
+        monitor.check_instances()
+        sleep(config.COSMOS_MONITOR_SLEEP_TIME)
+
 
 @click.group("start")
 def server_group():
