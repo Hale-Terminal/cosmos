@@ -9,7 +9,7 @@ class App(BaseModel):
     app: str
     ip_address: str
     status: str
-    port: int | None = None
+    port: int
     ami_id: str | None = ""
     instance_id: str | None = ""
     availability_zone: str | None = ""
