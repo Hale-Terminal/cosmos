@@ -244,7 +244,8 @@ class BuildAssetsCommand(BaseBuildCommand):
                 log.info("pulled version information from '{}'".format(json_path))
                 version, build = data["version"], data["build"]
 
-        return {"version": version, "build": build}
+        #return {"version": version, "build": build}
+        return {"version": "0.1.6", "build": "0012"}
 
     def _needs_static(self, version_info):
         json_path = self.get_asset_json_path()
@@ -275,14 +276,14 @@ class BuildAssetsCommand(BaseBuildCommand):
             )
         )
         if not version_info["version"] or not version_info["build"]:
-            log.fatal("Could not determine dispatch version or build")
+            log.fatal("Could not determine cosmos version or build")
             sys.exit(1)
 
         try:
             self._build_static()
         except Exception:
             traceback.print_exc()
-            log.fatal("unable to build Dispatch's static assets!")
+            log.fatal("unable to build Cosmos's static assets!")
             sys.exit(1)
 
         log.info("writing version manifest")
@@ -290,6 +291,7 @@ class BuildAssetsCommand(BaseBuildCommand):
         log.info("recorded manifest\n{}".format(json.dumps(manifest, indent=2)))
 
     def _build_static(self):
+        return
         # By setting NODE_ENV=production, a few things happen
         #   * Vue optimizes out certain code paths
         #   * Webpack will add version strings to built/referenced assets
@@ -308,7 +310,9 @@ class BuildAssetsCommand(BaseBuildCommand):
             "version": version_info["version"],
             "build": version_info["build"],
         }
-        with open(self.get_asset_json_path(), "w") as fp:
+        #with open(self.get_asset_json_path(), "w") as fp:
+        #    json.dump(manifest, fp)
+        with open("manifest.json", "w") as fp:
             json.dump(manifest, fp)
         return manifest
 

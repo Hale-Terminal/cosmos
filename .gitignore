@@ -67,3 +67,4 @@ package-lock.json
 /docs/html
 /docs/doctrees
 /.venv
+manifest.json
