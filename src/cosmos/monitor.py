@@ -25,7 +25,7 @@ class Monitor:
                 if instance_id in self.instance_failures:
                     failures = self.instance_failures[instance_id]
                     if failures >= config.COSMOS_INSTANCE_FAILURE_THRESHOLD:
-                        key = instance["app_id"] + ":" + instance_id
+                        key = instance["app"] + ":" + instance_id
                         r.update(key, "DOWN")
                     failures += 1
                     self.instance_failures[instance_id] = failures
