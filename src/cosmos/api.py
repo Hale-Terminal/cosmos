@@ -3,6 +3,7 @@ from typing import Union
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+from cosmos import log
 from cosmos.services import RedisHandler
 
 
@@ -10,11 +11,12 @@ class App(BaseModel):
     app: str
     ip_address: str
     status: str
-    port: Union[int, None] = None
-    ami_id: Union[str, None] = None
-    instance_id: Union[str, None] = None
-    availability_zone: Union[str, None] = None
-    instance_type: Union[str, None] = None
+    port: Union[int, None] = 0
+    ami_id: Union[str, None] = ""
+    ami_launch_index: Union[str, None] = ""
+    instance_id: Union[str, None] = ""
+    availability_zone: Union[str, None] = ""
+    instance_type: Union[str, None] = ""
     
 
 api = FastAPI()
@@ -43,12 +45,13 @@ async def register(app_id, app: App):
             ip_address=app.ip_address,
             status=app.status, 
             port=app.port,
-            ami_id=app.ami_id, 
+            ami_id=app.ami_id,
+            ami_launch_index=app.ami_launch_index,
             instance_id=app.instance_id, 
             availability_zone=app.availability_zone, 
             instance_type=app.instance_type)
     except Exception as e:
-        print(e)
+        log.error("Failed to register app", exc_info=True)
 
 
 @api.delete("/cosmosv1/apps/{app_id}/{instance_id}")
