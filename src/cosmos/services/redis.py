@@ -15,7 +15,7 @@ class RedisHandler:
             password=config.REDIS_PASSWORD
         )
 
-    def add(self, key, app, ip_address, status, port, ami_id, instance_id, availability_zone, instance_type, ami_launch_index):
+    def add(self, key, app, ip_address, status, port, ami_id, instance_id, availability_zone, instance_type, cpu_usage, ram_usage, ami_launch_index):
         now = datetime.utcnow()
         d = {
             "app": app,
@@ -27,6 +27,8 @@ class RedisHandler:
             "availability_zone": availability_zone,
             "instance_type": instance_type,
             "ami_launch_index": ami_launch_index,
+            "cpu_usage": cpu_usage,
+            "ram_usage": ram_usage,
             "timestamp": f"{now}"
         }
         try:

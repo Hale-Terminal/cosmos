@@ -17,6 +17,8 @@ class App(BaseModel):
     instance_id: Union[str, None] = ""
     availability_zone: Union[str, None] = ""
     instance_type: Union[str, None] = ""
+    cpu_usage: Union[float, None] = 0
+    ram_usage: Union[float, None] = 0
     
 
 api = FastAPI()
@@ -49,6 +51,8 @@ async def register(app_id, app: App):
             ami_launch_index=app.ami_launch_index,
             instance_id=app.instance_id, 
             availability_zone=app.availability_zone, 
+            cpu_usage=app.cpu_usage,
+            ram_usage=app.ram_usage,
             instance_type=app.instance_type)
     except Exception as e:
         log.error("Failed to register app", exc_info=True)

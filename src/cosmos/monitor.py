@@ -14,6 +14,7 @@ class Monitor:
         self.ungraceful_disconnects = 0
 
     def check_instances(self):
+        log.info("Checking instances...")
         instance_keys = r.get_all()
         self.total_instances = len(instance_keys)
         for instance_key in instance_keys:
@@ -22,9 +23,11 @@ class Monitor:
             timestamp = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S.%f")
             instance_id = instance["instance_id"]
             if (datetime.utcnow() - timestamp).total_seconds() > config.COSMOS_RENEWAL_THRESHOLD:
+                log.warn("Instance {}: Failed instance check".format(instance_id))
                 if instance_id in self.instance_failures:
                     failures = self.instance_failures[instance_id]
                     if failures >= config.COSMOS_INSTANCE_FAILURE_THRESHOLD:
+                        log.warn("Instance {}: Failure threshold met. Removing from queue".format(instance_id))
                         key = instance["app"] + ":" + instance_id
                         r.update(key, "DOWN")
                     failures += 1
